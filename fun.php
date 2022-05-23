@@ -322,7 +322,7 @@ function delTb($mdbInfo,$table){
         $tbIfKey=array('tableInfo'=>$table);
         if(del($mdbInfo,$tbIfKey)) 
             if(del($mdbInfo,$dbKey)) {
-            \array_splice($dbif['tableNames'], $tbInd, 1);
+            array_splice($dbif['tableNames'], $tbInd, 1);
             $dbif['columnNo']=$dbif['columnNo']-1;
             unset($dbif['_id']);
             if(create($mdbInfo,$dbif)) return true;
