@@ -19,7 +19,7 @@ if (isset($_POST['fknrt'])) {
             <label for="sfK">Selected a Foreign Key: <?php echo $_POST['fkName']; ?></label><br>
             <label for="srt">Selected Reference Table: <?php echo $_POST['fkTable']; ?></label><br>
             <label for="src">Select a Reference Column:</label>
-            <select name="fkColumn">
+            <select name="fkColumn" require>
                 <option value="">--Select--</option>
                 
                 <option value="<?php echo $tbInfo['pk'];?>"  <?php if(isset($_POST['fkColumn']) && $_POST['fkcolumn']==$tbInfo['pk']) { ?>selected<?php  } ?>><?php echo $tbInfo['pk'];?></option>
@@ -90,7 +90,7 @@ if (isset($_POST['fknrt'])) {
               <form action="" method="POST" name="fkey" >
                 <input type="hidden" id="fNo" name='fkNo' value=<?php echo $tInfo['fkNo']; ?>>
                 <label for="fKey">Select a Foreign Key:</label>
-                <select name="fkName">
+                <select name="fkName" require>
                   <option value="">--Select--</option>
                   <?php
                     for ($z = 0; $z <$tInfo['columnNo']; $z++){unset($fk);
@@ -101,7 +101,7 @@ if (isset($_POST['fknrt'])) {
                   <?php }}?>
                 </select><br>
                 <label for="rtb">Select a Reference Table:</label>
-                <select name="fkTable">
+                <select name="fkTable" require>
                   <option value="">--Select--</option>
                   <?php
                     for ($z = 0; $z <$dbInfo['tableNo']; $z++){ if($dbInfo['tableNames'][$z]!=$selectedTable){

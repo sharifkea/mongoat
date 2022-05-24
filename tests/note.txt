@@ -34,3 +34,6 @@ Create a folder called “tests” in working directory and in the folder create
 Step:6
 run test with
 ./vendor/bin/phpunit
+-d zend_extension=xdebug.so -d xdebug.mode=coverage
+./vendor/bin/phpunit tests --coverage-html coverage-filter
+XDEBUG_MODE=coverage php -n -dzend_extension=xdebug vendor/bin/phpunit --coverage-text

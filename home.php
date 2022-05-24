@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //var_dump($_SESSION['mdbInfo']);
         ?> 
         <form action="" method="POST" name="createDB" >
-            <label for="createDb">to create Database:</label>
+            <label for="createDb">To create Database:</label>
             <input type="submit" name="crtDB" value="Create DB">
         </form>        
         
@@ -70,6 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //$_SESSION["infoDB"]=$return;
         echo 'Database Name:'.$return->dbInfo;
         echo "<br>";
+        echo "SQL Info: Host: '".$return->host."', Password:'".$return->password."', User:'".$return->user."'.<br>"; 
+       
+        echo "Mongo Info: Document: '".$doc."', Collection:'".$coll."'.<br>"; 
         $tableNo = $return->tableNo;
         if($tableNo==0){
             echo 'No table found.';
@@ -103,63 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
             <?php
         }
-        /*
-
-        ?><div hidden id='murl'><?php echo $murl;?></div>
-        <div hidden id='coll'><?php echo $coll;?></div>
-        <div hidden id='doc'><?php echo $doc;?></div> 
-        <div hidden id='tbNo'><?php echo $return->tableNo;?></div> 
-        
-        
-        <?php
-        
-        $i=0;
-        foreach($return->tableNames as $z => $z_value) {
-            $keyTbNm=array('tableName'=>$z_value);
-            $colldb=$doc.'.'.$coll;
-            $options= [];
-            $query = new MongoDB\Driver\Query($keyTbNm, $options);
-            $rows = $manager->executeQuery($colldb, $query);
-
-            //print_r($rows);
-
-        // echo '<br>';
-        // echo json_encode($rows);
-        // echo '<script>';
-            //unset($tableArray);
-            $count=0;
-            foreach($rows as $ret){
-                //echo $ret->tableName;
-                ?><div hidden id='<?php echo $z_value.$count; ?>'><?php echo json_encode($ret); ?></div><?php
-                $count=$count+1;
-                //unset($doc->_id);
-            // foreach($ret as $x => $x_value) {
-                    //echo "Key=" . $x . ", Value=" . $x_value;
-
-                            
-                //}echo "<br>";
-            }
-
-            //echo '</script>';
-            
-            echo "<br>";
-            echo "Table-" . $z+1 . ":". $z_value;
-            ?><div hidden id='<?php echo $z_value.'rowCount'; ?>'><?php echo $count;?></div>
-            <a href="#">
-                <img id='<?php echo $z;?>' name='<?php echo $z_value;?>' class='smallButton see' src='img/see2.png'>
-            </a>
-        <?php
-            
-        }
-
-        //print_r($return);
-        /* $key=array("tableName"=>$tab);
-            $options= [];
-            $colldb=$doc.'.'.$coll;
-            $query = new MongoDB\Driver\Query($key, $options);
-            $rows = $manager->executeQuery($colldb, $query); */
-
     }
 }
-
-include_once('footer.php');?>  
+include_once('footer.php');
+?>  

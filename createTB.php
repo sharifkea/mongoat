@@ -102,7 +102,7 @@ if (isset($_POST['num_fields'])||isset($_SESSION['tbData'])) {
     }
     elseif(isset($_POST['save_tb'])){
         //unset($_POST['save_tb']);
-        
+        //var_dump($_POST);
         $retForm=form($_POST,$_SESSION['Data']['columnNo']);
         $_SESSION['tbData']=$_POST;
         //echo $_SESSION['tbData']['columnNames_0'];
@@ -167,38 +167,17 @@ if (isset($_POST['num_fields'])||isset($_SESSION['tbData'])) {
             default:
                 //unset($_SESSION['tbData']['num_fields']);
                 $_SESSION['Data']=array_merge($_SESSION['Data'],$retForm);
-                $retrn=create($_SESSION['mdbInfo'],$_SESSION['Data']);
-                if ($retrn){
-                    $key=array('db'=>"RDMS");
-                        $re=find_one($_SESSION['mdbInfo'],$key);
-
-                    $dt = array($re->tableNo => $_SESSION ['Data']['tableInfo']);
-                    if($re->tableNo==0){
-                        $re->tableNames=$dt;
-                    }
-                    else{
-                        $ary=$re->tableNames;
-                        $myArray = json_decode(json_encode($ary), true);
-                        $myArray=array_merge($myArray,$dt);
-                        $re->tableNames=$myArray;
-                        }
-                    $re->tableNo =$re->tableNo+1;
-
-                    $delret=del($_SESSION['mdbInfo'],$key);
-                    if(isset($delret)){
-                        $retval=create($_SESSION['mdbInfo'],$re);
-                        if(isset($retval)){
-                            unset($_SESSION['tbData']);
-                            unset($_SESSION['Data']);
-                            ?>
-                            <script>
-                                alert("The Table has been created successfully.");
-                                window.location.href ='home.php';
-                            </script>
-                            <?php  
-                        }
-                    }
-                }  
+                $retval=createTb($_SESSION['mdbInfo'],$_SESSION['Data']);
+                    if(isset($retval)){
+                        unset($_SESSION['tbData']);
+                        unset($_SESSION['Data']);
+                        ?>
+                        <script>
+                            alert("The Table has been created successfully.");
+                            window.location.href ='home.php';
+                        </script>
+                        <?php 
+                    }  
         }
     }else{
     ?>

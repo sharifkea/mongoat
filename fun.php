@@ -113,6 +113,32 @@ function form($post,$colm) {
         return $ret;
     } 
 }
+function createTb($sec,$data){
+    
+    $key=array('db'=>"RDMS");
+    $re=find_one($sec,$key);
+    $dt = array($re->tableNo => $data['tableInfo']);
+    
+    if($re->tableNo==0){
+        $re->tableNames=$dt;
+    }
+    else{
+        $ary=$re->tableNames;
+        $myArray = json_decode(json_encode($ary), true);
+        $myArray=array_merge($myArray,$dt);
+        $re->tableNames=$myArray;
+    }
+    $re->tableNo =$re->tableNo+1;
+
+    $delret=del($sec,$key);
+    if(isset($delret)){
+        $retval=create($sec,$re);
+        if(isset($retval)){
+            if(create($sec,$data)) return true;
+        }
+    }
+    return false;
+}
 function strInArray($arr, $keyword) {
     foreach($arr as $index => $string) {
         //array_push($array,"blue","yellow");
@@ -158,7 +184,7 @@ function addFK($mdbInfo,$data,$selectedTable){
 
 function inTbRow($mdbInfo,$data){
     $tableName=$data['tableName'];
-    //$i=0;
+    $i=0;
     $key=array('tableInfo'=>$data['tableName']);
     $tbif=find_one($mdbInfo,$key);
     $tbif = json_decode(json_encode($tbif), true);
@@ -317,24 +343,19 @@ function delTb($mdbInfo,$table){
         }
         else $tbInd=$index;
     }
-    $tbRoKey=array('tableName'=>$table);
-    if(del($mdbInfo,$tbRoKey)){
-        $tbIfKey=array('tableInfo'=>$table);
-        if(del($mdbInfo,$tbIfKey)) 
-            if(del($mdbInfo,$dbKey)) {
-            array_splice($dbif['tableNames'], $tbInd, 1);
-            $dbif['columnNo']=$dbif['columnNo']-1;
-            unset($dbif['_id']);
-            if(create($mdbInfo,$dbif)) return true;
+    if(isset($tbInd)){
+        $tbRoKey=array('tableName'=>$table);
+        if(del($mdbInfo,$tbRoKey)){
+            $tbIfKey=array('tableInfo'=>$table);
+            if(del($mdbInfo,$tbIfKey)) 
+                if(del($mdbInfo,$dbKey)) {
+                array_splice($dbif['tableNames'], $tbInd, 1);
+                $dbif['tableNo']=$dbif['tableNo']-1;
+                unset($dbif['_id']);
+                if(create($mdbInfo,$dbif)) return true;
+            }
         }
-    }
+    }else
     return false;
-}
-function add($a,$b){
-    return $a+$b;
-}
-
-function sub($a,$b){
-    return $a-$b;
 }
 ?>

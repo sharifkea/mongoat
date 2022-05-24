@@ -35,7 +35,7 @@
               <form action="" method="POST" name="login" >
                 <label for="MongoDBURL">MongoDB URL:<?php echo $txtMurl; ?></label><br>
                 <label for="doc">Select a Document:</label>
-                <select name="document">
+                <select name="document" required>
                   <option value="">--Select--</option>
                   <?php
                     for ($z = 0; $z <$i; $z++){
@@ -72,7 +72,7 @@
                 <label for="MongoDBURL">MongoDB URL:<?php echo $_SESSION['Murl']; ?></label><br>
                 <label for="doc">Selected Document:<?php echo $_SESSION['document']; ?></label><br>
                 <label for="coll">Select a Collection:</label>
-                <select name="collection">
+                <select name="collection" required>
                   <option value="">--Select--</option>
                   <?php
                     for ($z = 0; $z <$i; $z++){
