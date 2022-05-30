@@ -35,5 +35,6 @@ Step:6
 run test with
 ./vendor/bin/phpunit
 -d zend_extension=xdebug.so -d xdebug.mode=coverage
-./vendor/bin/phpunit tests --coverage-html coverage-filter
+./vendor/bin/phpunit tests --coverage-html coverage-filter --generate-configuration
 XDEBUG_MODE=coverage php -n -dzend_extension=xdebug vendor/bin/phpunit --coverage-text
+./vendor/bin/phpunit tests --coverage-html coverage-filter phpunit --generate-configuration

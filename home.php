@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<br>";
         echo "SQL Info: Host: '".$return->host."', Password:'".$return->password."', User:'".$return->user."'.<br>"; 
        
-        echo "Mongo Info: Document: '".$doc."', Collection:'".$coll."'.<br>"; 
+        echo "Relational MongoDB Info: Database: '".$doc."', Collection:'".$coll."'.<br>"; 
         $tableNo = $return->tableNo;
         if($tableNo==0){
             echo 'No table found.';
